@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from shared import render_sidebar
 
 st.set_page_config(layout="wide")
 
@@ -14,17 +15,11 @@ def get_data(url):
 
 st.title("Najlesze czasy na parkrun Ogród Saski, Lublin")
 
-sheet_url = "https://docs.google.com/spreadsheets/d/1JSTgwT8d623FTplInB7ByzFzoABZc6iCllKzS4oUais/export?format=csv"
+sheet_url = "https://docs.google.com/spreadsheets/d/1JSTgwT8d623FTplInB7ByzFzoABZc6iCllKzS4oUais/gviz/tq?tqx=out:csv&gid=0"
 df = get_data(sheet_url)
 
 st.write("PB każdego kto ukończył bieg w lokalizacji:")
 heigh = min(915,38*len(df))
 st.dataframe(df, height=heigh, use_container_width=False, hide_index= True)
 
-from datetime import datetime
-
-# Aktualna godzina
-now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-with st.sidebar:
-    st.markdown(f"🕒 **Aktualizacja:** {now}", unsafe_allow_html=True)
-    st.markdown("🏃 parkrun Ogród Saski, Lublin")
+render_sidebar()

@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from shared import render_sidebar
 
 st.set_page_config(layout="wide")
 
@@ -12,19 +13,13 @@ def get_data(url):
         st.error(f"Błąd połączenia z spreadsheets")
         return None
 
-st.title("Strona ostatnie spotkanie!")
+st.title("Wyzwanie ciągu Fibonacciego!")
 
 sheet_url = "https://docs.google.com/spreadsheets/d/1JSTgwT8d623FTplInB7ByzFzoABZc6iCllKzS4oUais/gviz/tq?tqx=out:csv&gid=1425276992"
 df = get_data(sheet_url)
 
-st.write("PB z ostatniej edycji:")
+st.write("Osoby, które ukończyły bieg na pozycji odpowiadającej liczbie w ciągu Fibonacciego:")
 heigh = min(915,38*len(df))
 st.dataframe(df, height=heigh, use_container_width=False, hide_index= True)
 
-from datetime import datetime
-
-# Aktualna godzina
-now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-with st.sidebar:
-    st.markdown(f"🕒 **Aktualizacja:** {now}", unsafe_allow_html=True)
-    st.markdown("🏃 parkrun Ogród Saski, Lublin")
+render_sidebar()

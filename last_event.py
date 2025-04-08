@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from shared import render_sidebar
 
 st.set_page_config(layout="wide")
 
@@ -21,10 +22,4 @@ st.write("PB z ostatniej edycji:")
 heigh = min(915,38*len(df))
 st.dataframe(df, height=heigh, use_container_width=False, hide_index= True)
 
-from datetime import datetime
-
-# Aktualna godzina
-now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-with st.sidebar:
-    st.markdown(f"🕒 **Aktualizacja:** {now}", unsafe_allow_html=True)
-    st.markdown("🏃 parkrun Ogród Saski, Lublin")
+render_sidebar()
